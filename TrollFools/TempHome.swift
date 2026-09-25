@@ -75,31 +75,57 @@ final class StashManager {
             .sorted { $0.lastPathComponent < $1.lastPathComponent }
     }
 
-    func importPlugin(from src: URL) throws {
+    /// Import one file into the stash. Returns the stored file name.
+    /// Tries direct copy first, then byte-level read/write; collects all
+    /// failure reasons so the caller can show exactly what went wrong.
+    @discardableResult
+    func importPlugin(from src: URL) throws -> String {
         ensureStash()
-        let dst = Self.stashRootURL.appendingPathComponent(src.lastPathComponent)
         let fm = FileManager.default
-        if fm.fileExists(atPath: dst.path) {
-            try fm.removeItem(at: dst)
-        }
+        let name = src.lastPathComponent
+        let dst = Self.stashRootURL.appendingPathComponent(name)
+
         let scoped = src.startAccessingSecurityScopedResource()
         defer { if scoped { src.stopAccessingSecurityScopedResource() } }
-        do {
-            try fm.copyItem(at: src, to: dst)
-        } catch {
-            // fallback: read bytes then write (works across security-scoped URLs)
-            let data = try Data(contentsOf: src)
-            guard !data.isEmpty else {
-                throw NSError(domain: "StashImport", code: -1,
-                              userInfo: [NSLocalizedDescriptionKey: "读取到的文件内容为空"])
+
+        if fm.fileExists(atPath: dst.path) {
+            try? fm.removeItem(at: dst)
+        }
+
+        var reasons: [String] = []
+
+        // Strategy 1: direct copy
+        if !fm.fileExists(atPath: dst.path) {
+            do {
+                try fm.copyItem(at: src, to: dst)
+            } catch {
+                reasons.append("copy:\(error.localizedDescription)")
             }
-            try data.write(to: dst, options: .atomic)
         }
-        // verify
+
+        // Strategy 2: byte-level read then write
+        if !fm.fileExists(atPath: dst.path) {
+            do {
+                let data = try Data(contentsOf: src)
+                if data.isEmpty {
+                    reasons.append("read:文件内容为空")
+                } else {
+                    try data.write(to: dst, options: .atomic)
+                }
+            } catch {
+                reasons.append("read:\(error.localizedDescription)")
+            }
+        }
+
+        // Verify
         guard fm.fileExists(atPath: dst.path) else {
-            throw NSError(domain: "StashImport", code: -2,
-                          userInfo: [NSLocalizedDescriptionKey: "复制后文件不存在：\(dst.path)"])
+            throw NSError(
+                domain: "StashImport", code: -1,
+                userInfo: [NSLocalizedDescriptionKey:
+                    "所有方式均失败（\(reasons.joined(separator: "；"))）。源路径：\(src.path)"]
+            )
         }
+        return name
     }
 
     func removePlugin(_ url: URL) {
@@ -111,6 +137,207 @@ final class StashManager {
         listPlugins().filter { url in
             let name = url.lastPathComponent.lowercased()
             return keywords.contains { name.contains($0.lowercased()) }
+        }
+    }
+}
+
+// MARK: - Import Engine (multi-channel, always visible on screen)
+
+final class ImportEngine: ObservableObject {
+
+    static let shared = ImportEngine()
+
+    /// On-screen log lines, newest last. Rendered in the UI so results are
+    /// always visible even if system alerts fail to present.
+    @Published var logs: [String] = []
+    @Published var notice: TempAlertItem?
+
+    private func stamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter.string(from: Date())
+    }
+
+    func log(_ line: String) {
+        DispatchQueue.main.async {
+            self.logs.append("[\(self.stamp())] \(line)")
+            if self.logs.count > 40 {
+                self.logs.removeFirst(self.logs.count - 40)
+            }
+        }
+    }
+
+    /// Import a batch of files. Safe to call from anywhere.
+    func importURLs(_ urls: [URL], source: String, showAlert: Bool = true) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            var ok: [String] = []
+            var failures: [String] = []
+            for url in urls {
+                do {
+                    let name = try StashManager.shared.importPlugin(from: url)
+                    ok.append(name)
+                } catch {
+                    failures.append("\(url.lastPathComponent)\n\(error.localizedDescription)")
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                for name in ok {
+                    self.log("✅ \(source)：已导入 \(name)")
+                }
+                for failure in failures {
+                    self.log("❌ \(source)：\(failure)")
+                }
+                if showAlert {
+                    if !failures.isEmpty {
+                        self.notice = TempAlertItem(title: "导入失败", message: failures.joined(separator: "\n\n"))
+                    } else if !ok.isEmpty {
+                        self.notice = TempAlertItem(title: "已添加插件", message: ok.joined(separator: ", "))
+                    }
+                }
+            }
+        }
+    }
+
+    /// Files delivered via the share sheet land in our tmp/Inbox whether or
+    /// not onOpenURL fires. Scan it and import everything found, then remove
+    /// the sources so they are not imported twice.
+    func scanInboxAndImport() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let fm = FileManager.default
+            let inbox = fm.temporaryDirectory.appendingPathComponent("Inbox")
+            guard let files = try? fm.contentsOfDirectory(
+                at: inbox, includingPropertiesForKeys: nil
+            ), !files.isEmpty else {
+                return
+            }
+            var imported: [URL] = []
+            for file in files {
+                do {
+                    _ = try StashManager.shared.importPlugin(from: file)
+                    imported.append(file)
+                } catch {
+                    self.log("❌ Inbox：\(file.lastPathComponent) \(error.localizedDescription)")
+                }
+            }
+            for url in imported {
+                try? fm.removeItem(at: url)
+            }
+            if !imported.isEmpty {
+                let names = imported.map { $0.lastPathComponent }.joined(separator: ", ")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.log("✅ 共享接收：已导入 \(names)")
+                    self.notice = TempAlertItem(title: "已添加插件", message: names)
+                }
+            }
+        }
+    }
+
+    /// Root-level deep scan for *.dylib across well-known locations and all
+    /// app data containers. Manual fallback that does not depend on the
+    /// document picker or the share sheet at all.
+    func deepScanAndImport() {
+        log("🔍 全盘扫描开始…")
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let fm = FileManager.default
+            let stashPath = StashManager.stashRootURL.path
+
+            var roots: [String] = [
+                fm.temporaryDirectory.path,
+                "/var/mobile/Documents",
+                "/var/mobile/Downloads",
+                "/var/mobile/Inbox",
+                "/var/mobile/Media",
+            ]
+            if let containers = try? fm.contentsOfDirectory(atPath: "/var/mobile/Containers/Data/Application") {
+                for cid in containers {
+                    roots.append("/var/mobile/Containers/Data/Application/\(cid)/Documents")
+                    roots.append("/var/mobile/Containers/Data/Application/\(cid)/Downloads")
+                    roots.append("/var/mobile/Containers/Data/Application/\(cid)/tmp")
+                    roots.append("/var/mobile/Containers/Data/Application/\(cid)/Inbox")
+                }
+            }
+
+            var found: [URL] = []
+            for root in roots {
+                guard fm.fileExists(atPath: root) else { continue }
+                guard let enumerator = fm.enumerator(
+                    at: URL(fileURLWithPath: root),
+                    includingPropertiesForKeys: [.isRegularFileKey]
+                ) else { continue }
+                for case let url as URL in enumerator {
+                    let path = url.path
+                    // skip our own stash
+                    if path.hasPrefix(stashPath) { continue }
+                    // limit depth to keep it fast
+                    let rel = String(path.dropFirst(root.count + 1))
+                    if rel.components(separatedBy: "/").count > 4 { enumerator.skipDescendants(); continue }
+                    if url.pathExtension.lowercased() == "dylib" {
+                        found.append(url)
+                    }
+                }
+            }
+
+            // deduplicate by file name
+            var seen = Set<String>()
+            let unique = found.filter { seen.insert($0.lastPathComponent).inserted }
+
+            DispatchQueue.main.async {
+                self.log("🔍 扫描完成，发现 \(unique.count) 个 dylib")
+            }
+
+            guard !unique.isEmpty else { return }
+            var ok: [String] = []
+            var failures: [String] = []
+            for url in unique {
+                do {
+                    _ = try StashManager.shared.importPlugin(from: url)
+                    ok.append(url.lastPathComponent)
+                } catch {
+                    failures.append("\(url.lastPathComponent)\n\(error.localizedDescription)")
+                }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                for name in ok { self.log("✅ 扫描导入：\(name)") }
+                for failure in failures { self.log("❌ 扫描导入：\(failure)") }
+                if !ok.isEmpty {
+                    self.notice = TempAlertItem(title: "扫描导入完成", message: "已导入：\n" + ok.joined(separator: "\n"))
+                }
+                if !failures.isEmpty {
+                    self.notice = TempAlertItem(title: "部分失败", message: failures.joined(separator: "\n\n"))
+                }
+            }
+        }
+    }
+
+    /// Environment diagnostics, results written to the on-screen log.
+    func runDiagnostics() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let fm = FileManager.default
+            let stash = StashManager.stashRootURL
+
+            self.log("🩺 诊断：uid=\(getuid())（0=root）")
+            self.log("🩺 暂存目录：\(stash.path)")
+            self.log("🩺 目录存在：\(fm.fileExists(atPath: stash.path))")
+
+            let test = stash.appendingPathComponent(".diag-\(Int(Date().timeIntervalSince1970))")
+            do {
+                try Data("ok".utf8).write(to: test)
+                try? fm.removeItem(at: test)
+                self.log("🩺 暂存目录写入测试：✅")
+            } catch {
+                self.log("🩺 暂存目录写入测试：❌ \(error.localizedDescription)")
+            }
+
+            let inbox = fm.temporaryDirectory.appendingPathComponent("Inbox")
+            let inboxFiles = (try? fm.contentsOfDirectory(atPath: inbox.path)) ?? []
+            self.log("🩺 Inbox(\(inbox.path))：\(inboxFiles.isEmpty ? "空" : inboxFiles.joined(separator: ", "))")
+
+            let stashFiles = (try? fm.contentsOfDirectory(atPath: stash.path)) ?? []
+            self.log("🩺 暂存箱内容：\(stashFiles.isEmpty ? "空" : stashFiles.joined(separator: ", "))")
         }
     }
 }
@@ -246,8 +473,8 @@ final class GameInjector: ObservableObject {
 struct TempHomeView: View {
 
     @StateObject private var injector = GameInjector.shared
+    @ObservedObject private var engine = ImportEngine.shared
     @State private var stashCount = 0
-    @State private var importNotice: TempAlertItem?
 
     var body: some View {
         NavigationView {
@@ -286,28 +513,21 @@ struct TempHomeView: View {
             .navigationTitle("游戏注入")
             .onAppear {
                 TempInjectManager.shared.cleanupOrphans()
+                ImportEngine.shared.scanInboxAndImport()
+                stashCount = StashManager.shared.listPlugins().count
+            }
+            .onChange(of: engine.logs.count) { _ in
                 stashCount = StashManager.shared.listPlugins().count
             }
             .onOpenURL { url in
-                // Receive files shared in from Files app / "Open in..." / share sheet
-                do {
-                    try StashManager.shared.importPlugin(from: url)
-                    stashCount = StashManager.shared.listPlugins().count
-                    importNotice = TempAlertItem(
-                        title: "已添加插件",
-                        message: url.lastPathComponent
-                    )
-                } catch {
-                    importNotice = TempAlertItem(
-                        title: "导入失败",
-                        message: "\(url.lastPathComponent)：\(error.localizedDescription)"
-                    )
-                }
+                // Receive files shared in from Files app / WeChat "open in" etc.
+                ImportEngine.shared.log("📩 收到共享文件：\(url.lastPathComponent)")
+                ImportEngine.shared.importURLs([url], source: "共享")
             }
             .alert(item: $injector.alertItem) { item in
                 Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
             }
-            .alert(item: $importNotice) { item in
+            .alert(item: $engine.notice) { item in
                 Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
             }
         }
@@ -337,9 +557,9 @@ struct TempHomeView: View {
 
 struct StashView: View {
 
+    @ObservedObject private var engine = ImportEngine.shared
     @State private var plugins: [URL] = []
     @State private var isImporterPresented = false
-    @State private var importNotice: TempAlertItem?
 
     private let stash = StashManager.shared
 
@@ -350,7 +570,7 @@ struct StashView: View {
                 footer: Text("文件名包含「王者」→ 王者荣耀 ｜ 包含「地下城」或「DNF」→ 地下城与勇士")
             ) {
                 if plugins.isEmpty {
-                    Text("暂无插件，点击“添加插件”导入。")
+                    Text("暂无插件，试试下面的导入方式。")
                         .foregroundColor(.secondary)
                         .font(.footnote)
                 } else {
@@ -370,43 +590,73 @@ struct StashView: View {
                         reload()
                     }
                 }
+            }
 
+            Section(header: Text("导入")) {
                 Button {
                     isImporterPresented = true
                 } label: {
-                    Label("添加插件", systemImage: "plus.circle.fill")
+                    Label("添加插件（文件选择）", systemImage: "plus.circle.fill")
+                }
+
+                Button {
+                    ImportEngine.shared.scanInboxAndImport()
+                } label: {
+                    Label("扫描共享收件箱", systemImage: "tray.and.arrow.down.fill")
+                }
+
+                Button {
+                    ImportEngine.shared.deepScanAndImport()
+                } label: {
+                    Label("全盘扫描 dylib", systemImage: "magnifyingglass")
+                }
+
+                Button {
+                    ImportEngine.shared.runDiagnostics()
+                } label: {
+                    Label("运行导入诊断", systemImage: "stethoscope")
+                }
+            }
+
+            if !engine.logs.isEmpty {
+                Section(header: Text("导入日志")) {
+                    ForEach(engine.logs.suffix(10), id: \.self) { line in
+                        Text(line)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(3)
+                    }
                 }
             }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("暂存箱")
-        .onAppear { reload() }
+        .onAppear {
+            reload()
+            ImportEngine.shared.scanInboxAndImport()
+        }
+        .onChange(of: engine.logs.count) { _ in
+            reload()
+        }
         .fileImporter(
             isPresented: $isImporterPresented,
             allowedContentTypes: [.data],
             allowsMultipleSelection: true
         ) { result in
             isImporterPresented = false
-            if case let .success(urls) = result {
-                var ok: [String] = []
-                var failures: [String] = []
-                for url in urls {
-                    do {
-                        try stash.importPlugin(from: url)
-                        ok.append(url.lastPathComponent)
-                    } catch {
-                        failures.append("\(url.lastPathComponent)：\(error.localizedDescription)")
-                    }
+            switch result {
+            case let .success(urls):
+                if urls.isEmpty {
+                    ImportEngine.shared.log("⚠️ 文件选择：未选择任何文件")
+                } else {
+                    ImportEngine.shared.importURLs(urls, source: "文件选择")
                 }
-                reload()
-                if !failures.isEmpty {
-                    importNotice = TempAlertItem(title: "导入失败", message: failures.joined(separator: "\n"))
-                } else if !ok.isEmpty {
-                    importNotice = TempAlertItem(title: "已添加插件", message: ok.joined(separator: ", "))
-                }
+            case let .failure(error):
+                ImportEngine.shared.log("❌ 文件选择：\(error.localizedDescription)")
+                ImportEngine.shared.notice = TempAlertItem(title: "文件选择失败", message: error.localizedDescription)
             }
         }
-        .alert(item: $importNotice) { item in
+        .alert(item: $engine.notice) { item in
             Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
         }
     }
