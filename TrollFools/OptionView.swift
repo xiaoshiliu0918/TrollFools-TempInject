@@ -114,18 +114,24 @@ struct OptionView: View {
                         String(format: NSLocalizedString("TempInjectAndLaunch (%@)", comment: ""), rememberedURLs.map { $0.lastPathComponent }.joined(separator: ", ")),
                         systemImage: "bolt.badge.clock"
                     )
+                    .font(.headline)
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(Color.accentColor.opacity(0.18))
+                    .cornerRadius(8)
                 }
-                .buttonStyle(.borderedProminent)
             }
 
             Button {
                 isTempImporterPresented = true
             } label: {
                 Label(NSLocalizedString("ChoosePlugInsAndTempInject", comment: ""), systemImage: "square.and.arrow.down.on.square")
+                    .font(.subheadline)
                     .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(Color.secondary.opacity(0.12))
+                    .cornerRadius(8)
             }
-            .buttonStyle(.bordered)
         }
         .padding(.horizontal)
 

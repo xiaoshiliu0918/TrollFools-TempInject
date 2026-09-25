@@ -174,8 +174,11 @@ struct CmdWatch: ParsableCommand {
         let actualCount = size / MemoryLayout<kinfo_proc>.stride
         var result = [pid_t]()
         for index in 0..<actualCount {
-            let name = withUnsafeBytes(of: procs[index].kp_proc.p_comm) { rawBuffer in
-                String(cString: rawBuffer.bindMemory(to: CChar.self).baseAddress ?? UnsafePointer(""))
+            let name = withUnsafeBytes(of: procs[index].kp_proc.p_comm) { rawBuffer -> String in
+                guard let base = rawBuffer.baseAddress?.assumingMemoryBound(to: CChar.self) else {
+                    return ""
+                }
+                return String(cString: base)
             }
             if name == comm {
                 result.append(procs[index].kp_proc.p_pid)
