@@ -17,6 +17,9 @@ jobs:
           git clone --recursive https://github.com/theos/theos.git $HOME/theos
           echo "THEOS=$HOME/theos" >> $GITHUB_ENV
 
+      - name: Install ldid
+        run: brew install ldid
+
       - name: Build tipa
         run: |
           export THEOS=$HOME/theos
