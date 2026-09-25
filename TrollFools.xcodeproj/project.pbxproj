@@ -103,6 +103,7 @@
 		CCB6A1172C4A540F000D75B0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB6A1162C4A540F000D75B0 /* CoreServices.framework */; };
 		CCB6A1192C4A58C7000D75B0 /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A1182C4A58C7000D75B0 /* OptionView.swift */; };
 		CCB6A11B2C4A6066000D75B0 /* InjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6A11A2C4A6066000D75B0 /* InjectView.swift */; };
+		61AA0A0A2D0000000000AA02 /* TempHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AA0A0A2D0000000000AA01 /* TempHome.swift */; };
 		CCC564EB2C4BE8320097C300 /* ldid in Resources */ = {isa = PBXBuildFile; fileRef = CCC564E82C4BE8320097C300 /* ldid */; };
 		CCC564EC2C4BE8470097C300 /* libcrypto.3.dylib in Resources */ = {isa = PBXBuildFile; fileRef = CCC564E62C4BE8320097C300 /* libcrypto.3.dylib */; };
 		CCD3FCAA2E7033A700AEF7F0 /* App+Ads.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD3FCA92E7033A300AEF7F0 /* App+Ads.swift */; };
@@ -212,6 +213,7 @@
 		CCB6A1162C4A540F000D75B0 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CCB6A1182C4A58C7000D75B0 /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
 		CCB6A11A2C4A6066000D75B0 /* InjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectView.swift; sourceTree = "<group>"; };
+		61AA0A0A2D0000000000AA01 /* TempHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempHome.swift; sourceTree = "<group>"; };
 		CCC564E62C4BE8320097C300 /* libcrypto.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libcrypto.3.dylib; sourceTree = "<group>"; };
 		CCC564E82C4BE8320097C300 /* ldid */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ldid; sourceTree = "<group>"; };
 		CCD3FCA92E7033A300AEF7F0 /* App+Ads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Ads.swift"; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				CC1548D42C4A744300A4173E /* FailureView.swift */,
 				614C0C6B2D7D72C7007E9184 /* IndexableScroller.swift */,
 				CCB6A11A2C4A6066000D75B0 /* InjectView.swift */,
+				61AA0A0A2D0000000000AA01 /* TempHome.swift */,
 				6168001C2D3652B100DF485F /* LogsView.swift */,
 				6124A0772CD232D400C52253 /* OptionCell.swift */,
 				CCB6A1182C4A58C7000D75B0 /* OptionView.swift */,
@@ -660,6 +663,7 @@
 				61EFA37D2D311DA800159442 /* InjectorV3+Inject.swift in Sources */,
 				CCF5A0A62C4D45400097D48D /* AuxiliaryExecute+Spawn.swift in Sources */,
 				CCB6A11B2C4A6066000D75B0 /* InjectView.swift in Sources */,
+				61AA0A0A2D0000000000AA02 /* TempHome.swift in Sources */,
 				CCF470732C4A4E81008D8197 /* TrollFoolsStub.m in Sources */,
 				6124A06D2CD2322400C52253 /* App.swift in Sources */,
 				CC15490E2C4B80AF00A4173E /* EjectListView.swift in Sources */,
