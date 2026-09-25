@@ -82,7 +82,24 @@ final class StashManager {
         if fm.fileExists(atPath: dst.path) {
             try fm.removeItem(at: dst)
         }
-        try fm.copyItem(at: src, to: dst)
+        let scoped = src.startAccessingSecurityScopedResource()
+        defer { if scoped { src.stopAccessingSecurityScopedResource() } }
+        do {
+            try fm.copyItem(at: src, to: dst)
+        } catch {
+            // fallback: read bytes then write (works across security-scoped URLs)
+            let data = try Data(contentsOf: src)
+            guard !data.isEmpty else {
+                throw NSError(domain: "StashImport", code: -1,
+                              userInfo: [NSLocalizedDescriptionKey: "读取到的文件内容为空"])
+            }
+            try data.write(to: dst, options: .atomic)
+        }
+        // verify
+        guard fm.fileExists(atPath: dst.path) else {
+            throw NSError(domain: "StashImport", code: -2,
+                          userInfo: [NSLocalizedDescriptionKey: "复制后文件不存在：\(dst.path)"])
+        }
     }
 
     func removePlugin(_ url: URL) {
@@ -300,6 +317,7 @@ struct StashView: View {
 
     @State private var plugins: [URL] = []
     @State private var isImporterPresented = false
+    @State private var importError: String?
 
     private let stash = StashManager.shared
 
@@ -347,13 +365,25 @@ struct StashView: View {
             allowsMultipleSelection: true
         ) { result in
             if case let .success(urls) = result {
+                var failures: [String] = []
                 for url in urls {
-                    let scoped = url.startAccessingSecurityScopedResource()
-                    defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-                    try? stash.importPlugin(from: url)
+                    do {
+                        try stash.importPlugin(from: url)
+                    } catch {
+                        failures.append("\(url.lastPathComponent)：\(error.localizedDescription)")
+                    }
                 }
                 reload()
+                if !failures.isEmpty {
+                    importError = failures.joined(separator: "\n")
+                }
             }
+        }
+        .alert(item: Binding(
+            get: { importError.map { TempAlertItem(title: "导入失败", message: $0) } },
+            set: { importError = $0?.message }
+        )) { item in
+            Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
         }
     }
 
