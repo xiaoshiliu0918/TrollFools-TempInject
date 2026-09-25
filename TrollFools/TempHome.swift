@@ -8,10 +8,19 @@
 
 import SwiftUI
 import CoreServices
+import UniformTypeIdentifiers
+
+// MARK: - Alert item (iOS 14 compatible)
+
+struct TempAlertItem: Identifiable {
+    let id = UUID()
+    let title: String
+    let message: String
+}
 
 // MARK: - Game Targets
 
-private struct GameTarget {
+struct GameTarget {
     let buttonTitle: String
     let emoji: String
     /// keywords matched against plugin file names in the stash
@@ -95,15 +104,9 @@ private func killRunningApp(bid: String) {
     guard let proxy = LSApplicationProxy(forIdentifier: bid),
           let bundleURL = proxy.bundleURL()
     else { return }
-    let execName: String
-    if let exec = proxy.executableName {
-        execName = exec
-    } else {
-        guard let info = CFBundleCopyInfoDictionaryForURL(bundleURL as CFURL) as? [String: Any],
-              let name = info["CFBundleExecutable"] as? String
-        else { return }
-        execName = name
-    }
+    guard let info = CFBundleCopyInfoDictionaryForURL(bundleURL as CFURL) as? [String: Any],
+          let execName = info["CFBundleExecutable"] as? String
+    else { return }
     // p_comm is truncated to 15 chars
     let comm = String(execName.prefix(15))
     var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0]
@@ -133,9 +136,7 @@ final class GameInjector: ObservableObject {
 
     @Published var isWorking = false
     @Published var statusText: String = ""
-    @Published var alertTitle: String = ""
-    @Published var alertMessage: String = ""
-    @Published var showAlert = false
+    @Published var alertItem: TempAlertItem?
 
     /// Resolve target app: fixed bid first, then display-name match.
     private func resolveApp(_ target: GameTarget) -> (bid: String, url: URL)? {
@@ -144,7 +145,7 @@ final class GameInjector: ObservableObject {
            let url = proxy.bundleURL() {
             return (bid, url)
         }
-        let installed = LSApplicationWorkspace.default().allApplications()
+        let installed = LSApplicationWorkspace.default().allApplications() ?? []
         for kw in target.appNameKeywords {
             if let hit = installed.first(where: { proxy in
                 (proxy.localizedName() ?? "").contains(kw) && proxy.bundleURL() != nil
@@ -210,9 +211,7 @@ final class GameInjector: ObservableObject {
         DispatchQueue.main.async {
             self.isWorking = false
             self.statusText = ""
-            self.alertTitle = "提示"
-            self.alertMessage = message
-            self.showAlert = true
+            self.alertItem = TempAlertItem(title: "提示", message: message)
         }
     }
 
@@ -220,9 +219,7 @@ final class GameInjector: ObservableObject {
         DispatchQueue.main.async {
             self.isWorking = false
             self.statusText = ""
-            self.alertTitle = "完成"
-            self.alertMessage = message
-            self.showAlert = true
+            self.alertItem = TempAlertItem(title: "完成", message: message)
         }
     }
 }
@@ -297,10 +294,8 @@ struct TempHomeView: View {
                 TempInjectManager.shared.cleanupOrphans()
                 reload()
             }
-            .alert(injector.alertTitle, isPresented: $injector.showAlert) {
-                Button("好", role: .cancel) {}
-            } message: {
-                Text(injector.alertMessage)
+            .alert(item: $injector.alertItem) { item in
+                Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
             }
             .fileImporter(
                 isPresented: $isImporterPresented,
