@@ -312,6 +312,54 @@ final class ImportEngine: ObservableObject {
         }
     }
 
+    /// The user-visible import folder inside our own Documents, exposed via
+    /// UIFileSharingEnabled so it shows up in the Files app
+    /// (文件 App → 我的 iPhone → 石榴注入器 → 插件导入).
+    static var importFolderURL: URL {
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return docs.appendingPathComponent("插件导入", isDirectory: true)
+    }
+
+    static func ensureImportFolder() {
+        try? FileManager.default.createDirectory(
+            at: importFolderURL, withIntermediateDirectories: true
+        )
+    }
+
+    /// Move every file the user dropped into the Documents import folder into
+    /// the permanent stash. Called automatically on every app foreground and
+    /// stash page visit.
+    func syncImportFolder() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let fm = FileManager.default
+            Self.ensureImportFolder()
+            guard let files = try? fm.contentsOfDirectory(
+                at: Self.importFolderURL, includingPropertiesForKeys: nil
+            ), !files.isEmpty else {
+                return
+            }
+            var imported: [String] = []
+            for file in files {
+                if file.lastPathComponent.hasPrefix(".") { continue }
+                do {
+                    _ = try StashManager.shared.importPlugin(from: file)
+                    try? fm.removeItem(at: file)
+                    imported.append(file.lastPathComponent)
+                } catch {
+                    self.log("❌ 导入文件夹：\(file.lastPathComponent) \(error.localizedDescription)")
+                }
+            }
+            if !imported.isEmpty {
+                let names = imported.joined(separator: ", ")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.log("✅ 导入文件夹：已导入 \(names)")
+                    self.notice = TempAlertItem(title: "已添加插件", message: names)
+                }
+            }
+        }
+    }
+
     /// Environment diagnostics, results written to the on-screen log.
     func runDiagnostics() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -338,6 +386,9 @@ final class ImportEngine: ObservableObject {
 
             let stashFiles = (try? fm.contentsOfDirectory(atPath: stash.path)) ?? []
             self.log("🩺 暂存箱内容：\(stashFiles.isEmpty ? "空" : stashFiles.joined(separator: ", "))")
+
+            let folderFiles = (try? fm.contentsOfDirectory(atPath: ImportEngine.importFolderURL.path)) ?? []
+            self.log("🩺 导入文件夹(\(ImportEngine.importFolderURL.path))：\(folderFiles.isEmpty ? "空" : folderFiles.joined(separator: ", "))")
         }
     }
 }
@@ -514,6 +565,7 @@ struct TempHomeView: View {
             .onAppear {
                 TempInjectManager.shared.cleanupOrphans()
                 ImportEngine.shared.scanInboxAndImport()
+                ImportEngine.shared.syncImportFolder()
                 stashCount = StashManager.shared.listPlugins().count
             }
             .onChange(of: engine.logs.count) { _ in
@@ -567,7 +619,7 @@ struct StashView: View {
         List {
             Section(
                 header: Text("放置的 dylib 会永久保存在这里，直到你手动删除"),
-                footer: Text("文件名包含「王者」→ 王者荣耀 ｜ 包含「地下城」或「DNF」→ 地下城与勇士")
+                footer: Text("推荐导入方式：「文件」App → 我的 iPhone → 石榴注入器 → 插件导入，把 dylib 复制进去，回到本页自动收进暂存箱。\n文件名包含「王者」→ 王者荣耀 ｜ 包含「地下城」或「DNF」→ 地下城与勇士")
             ) {
                 if plugins.isEmpty {
                     Text("暂无插件，试试下面的导入方式。")
@@ -594,15 +646,21 @@ struct StashView: View {
 
             Section(header: Text("导入")) {
                 Button {
-                    isImporterPresented = true
+                    ImportEngine.shared.syncImportFolder()
                 } label: {
-                    Label("添加插件（文件选择）", systemImage: "plus.circle.fill")
+                    Label("导入文件夹（推荐：文件 App 复制进来）", systemImage: "folder.badge.plus")
                 }
 
                 Button {
                     ImportEngine.shared.scanInboxAndImport()
                 } label: {
                     Label("扫描共享收件箱", systemImage: "tray.and.arrow.down.fill")
+                }
+
+                Button {
+                    isImporterPresented = true
+                } label: {
+                    Label("添加插件（文件选择）", systemImage: "plus.circle.fill")
                 }
 
                 Button {
@@ -634,6 +692,7 @@ struct StashView: View {
         .onAppear {
             reload()
             ImportEngine.shared.scanInboxAndImport()
+            ImportEngine.shared.syncImportFolder()
         }
         .onChange(of: engine.logs.count) { _ in
             reload()
