@@ -2,8 +2,8 @@
 //  TempHome.swift
 //  TrollFools
 //
-//  Minimal temporary-injection home:
-//  a plugin stash + per-game inject & launch buttons.
+//  Minimal temp-injection launcher:
+//  permanent plugin stash + one-tap game launch with auto inject & auto restore.
 //
 
 import SwiftUI
@@ -31,7 +31,7 @@ struct GameTarget {
     let fixedBundleID: String?
 
     static let wzry = GameTarget(
-        buttonTitle: "注入王者荣耀",
+        buttonTitle: "启动王者荣耀",
         emoji: "👑",
         pluginKeywords: ["王者", "王者荣耀", "wzry", "smoba"],
         appNameKeywords: ["王者", "smoba"],
@@ -39,7 +39,7 @@ struct GameTarget {
     )
 
     static let dnf = GameTarget(
-        buttonTitle: "注入地下城",
+        buttonTitle: "启动地下城与勇士",
         emoji: "⚔️",
         pluginKeywords: ["地下城", "dnf", "DNF"],
         appNameKeywords: ["地下城", "dnf", "DNF"],
@@ -68,7 +68,7 @@ final class StashManager {
         let fm = FileManager.default
         let urls = (try? fm.contentsOfDirectory(
             at: Self.stashRootURL,
-            includingPropertiesForKeys: [.isDirectoryKey, .contentModificationDateKey]
+            includingPropertiesForKeys: [.isDirectoryKey]
         )) ?? []
         return urls
             .filter { $0.lastPathComponent != ".DS_Store" }
@@ -167,7 +167,7 @@ final class GameInjector: ObservableObject {
 
             // 1. resolve app
             guard let targetApp = self.resolveApp(target) else {
-                self.finish(alertOnly: "未找到「\(target.buttonTitle.replacingOccurrences(of: "注入", with: ""))」对应的已安装 App，请确认游戏已安装。")
+                self.finish(alertOnly: "未找到「\(target.buttonTitle.replacingOccurrences(of: "启动", with: ""))」对应的已安装 App，请确认游戏已安装。")
                 return
             }
             let bid = targetApp.bid
@@ -176,11 +176,11 @@ final class GameInjector: ObservableObject {
             // 2. resolve plugins
             let plugins = stash.plugins(matching: target.pluginKeywords)
             guard !plugins.isEmpty else {
-                self.finish(alertOnly: "暂存箱中没有命名匹配「\(target.buttonTitle.replacingOccurrences(of: "注入", with: ""))」的插件。\n请把 dylib 命名后放入暂存箱（例如文件名含“\(target.appNameKeywords.first ?? "")”）再试。")
+                self.finish(alertOnly: "暂存箱中没有匹配「\(target.buttonTitle.replacingOccurrences(of: "启动", with: ""))」的插件。\n请先把对应的 dylib 放入暂存箱（文件名需包含“\(target.appNameKeywords.first ?? "")”）再试。")
                 return
             }
 
-            DispatchQueue.main.async { self.statusText = "正在注入 \(plugins.count) 个插件…" }
+            DispatchQueue.main.async { self.statusText = "正在加载 \(plugins.count) 个插件…" }
 
             // 3. kill the game if running (inject requires it not running)
             killRunningApp(bid: bid)
@@ -200,9 +200,9 @@ final class GameInjector: ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     manager.launchApp(bid: bid)
                 }
-                self.finish(success: "已注入 \(plugins.map { $0.lastPathComponent }.joined(separator: ", "))，正在打开游戏。退出游戏后插件会自动移除。")
+                self.finish(success: "插件已加载，正在打开游戏。退出游戏后插件自动移除。")
             } catch {
-                self.finish(alertOnly: "注入失败：\(error.localizedDescription)")
+                self.finish(alertOnly: "加载失败：\(error.localizedDescription)")
             }
         }
     }
@@ -224,55 +224,30 @@ final class GameInjector: ObservableObject {
     }
 }
 
-// MARK: - Home View
+// MARK: - Home View (three buttons only)
 
 struct TempHomeView: View {
 
     @StateObject private var injector = GameInjector.shared
-    @State private var plugins: [URL] = []
-    @State private var isImporterPresented = false
-
-    private let stash = StashManager.shared
 
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("暂存箱（放入 dylib）")) {
-                    if plugins.isEmpty {
-                        Text("暂无插件，点击下方“添加插件”导入。")
-                            .foregroundColor(.secondary)
-                            .font(.footnote)
-                    } else {
-                        ForEach(plugins, id: \.absoluteString) { url in
-                            HStack {
-                                Image(systemName: "shippingbox.fill")
-                                    .foregroundColor(.orange)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(url.lastPathComponent)
-                                        .font(.subheadline)
-                                        .lineLimit(1)
-                                    Text("王者 → 自动注入 ｜ 地下城 → 自动注入")
-                                        .font(.caption2)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
+                Section(header: Text("插件暂存箱")) {
+                    NavigationLink(destination: StashView()) {
+                        HStack {
+                            Image(systemName: "shippingbox.fill")
+                                .foregroundColor(.orange)
+                            Text("暂存箱")
+                            Spacer()
+                            Text("\(StashManager.shared.listPlugins().count) 个插件")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
                         }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                stash.removePlugin(plugins[index])
-                            }
-                            reload()
-                        }
-                    }
-
-                    Button {
-                        isImporterPresented = true
-                    } label: {
-                        Label("添加插件", systemImage: "plus.circle.fill")
                     }
                 }
 
-                Section(header: Text("动态注入（退出游戏自动还原）")) {
+                Section(header: Text("启动游戏（自动加载暂存箱内对应插件）")) {
                     gameButton(.wzry)
                     gameButton(.dnf)
                 }
@@ -289,27 +264,12 @@ struct TempHomeView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("临时注入")
+            .navigationTitle("游戏注入")
             .onAppear {
                 TempInjectManager.shared.cleanupOrphans()
-                reload()
             }
             .alert(item: $injector.alertItem) { item in
                 Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
-            }
-            .fileImporter(
-                isPresented: $isImporterPresented,
-                allowedContentTypes: [.data],
-                allowsMultipleSelection: true
-            ) { result in
-                if case let .success(urls) = result {
-                    for url in urls {
-                        let scoped = url.startAccessingSecurityScopedResource()
-                        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-                        try? stash.importPlugin(from: url)
-                    }
-                    reload()
-                }
             }
         }
         .navigationViewStyle(.stack)
@@ -324,12 +284,77 @@ struct TempHomeView: View {
                 Text(target.emoji)
                 Text(target.buttonTitle)
                     .fontWeight(.semibold)
+                    .foregroundColor(.primary)
                 Spacer()
-                Image(systemName: "bolt.horizontal.circle")
+                Image(systemName: "arrow.up.forward.circle")
                     .foregroundColor(.secondary)
             }
         }
         .disabled(injector.isWorking)
+    }
+}
+
+// MARK: - Stash Page (permanent storage)
+
+struct StashView: View {
+
+    @State private var plugins: [URL] = []
+    @State private var isImporterPresented = false
+
+    private let stash = StashManager.shared
+
+    var body: some View {
+        List {
+            Section(
+                header: Text("放置的 dylib 会永久保存在这里，直到你手动删除"),
+                footer: Text("文件名包含「王者」→ 王者荣耀 ｜ 包含「地下城」或「DNF」→ 地下城与勇士")
+            ) {
+                if plugins.isEmpty {
+                    Text("暂无插件，点击“添加插件”导入。")
+                        .foregroundColor(.secondary)
+                        .font(.footnote)
+                } else {
+                    ForEach(plugins, id: \.absoluteString) { url in
+                        HStack {
+                            Image(systemName: "shippingbox.fill")
+                                .foregroundColor(.orange)
+                            Text(url.lastPathComponent)
+                                .font(.subheadline)
+                                .lineLimit(1)
+                        }
+                    }
+                    .onDelete { indexSet in
+                        for index in indexSet {
+                            stash.removePlugin(plugins[index])
+                        }
+                        reload()
+                    }
+                }
+
+                Button {
+                    isImporterPresented = true
+                } label: {
+                    Label("添加插件", systemImage: "plus.circle.fill")
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("暂存箱")
+        .onAppear { reload() }
+        .fileImporter(
+            isPresented: $isImporterPresented,
+            allowedContentTypes: [.data],
+            allowsMultipleSelection: true
+        ) { result in
+            if case let .success(urls) = result {
+                for url in urls {
+                    let scoped = url.startAccessingSecurityScopedResource()
+                    defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+                    try? stash.importPlugin(from: url)
+                }
+                reload()
+            }
+        }
     }
 
     private func reload() {
