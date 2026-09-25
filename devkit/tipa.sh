@@ -15,8 +15,8 @@ if [ -f $THEOS_STAGING_DIR$THEOS_PACKAGE_INSTALL_PREFIX/usr/local/bin/trollfools
 fi
 
 cd $THEOS_STAGING_DIR
-# 7z a -tzip TrollFools_$VERSION-$BUILD_NUMBER.tipa Payload
-zip -qr TrollFools_$VERSION-$BUILD_NUMBER.tipa Payload
+# 7z a -tzip 石榴注入器.tipa Payload
+zip -qr 石榴注入器.tipa Payload
 cd -
 
-cp -p $THEOS_STAGING_DIR/TrollFools_$VERSION-$BUILD_NUMBER.tipa packages
+cp -p $THEOS_STAGING_DIR/石榴注入器.tipa packages
