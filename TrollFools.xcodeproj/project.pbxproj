@@ -619,7 +619,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\"\nif [ \"$CODE_SIGNING_ALLOWED\" = \"NO\" ] && [ \"$TARGET_DEVICE_PLATFORM_NAME\" != \"iphonesimulator\" ]; then\n  ldid -S${CODE_SIGN_ENTITLEMENTS} ${CODESIGNING_FOLDER_PATH}\nfi\n";
+			shellScript = "echo 'Post-archive ldid signing is handled by make before-package'\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
