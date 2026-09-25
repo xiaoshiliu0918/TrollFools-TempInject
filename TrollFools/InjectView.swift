@@ -282,7 +282,8 @@ final class TempInjectManager {
     }
 
     /// Jump to the target app via SpringBoard.
-    func launchApp(bid: String) {
+    @discardableResult
+    func launchApp(bid: String) -> Bool {
         LSApplicationWorkspace.default().openApplication(withBundleID: bid)
     }
 

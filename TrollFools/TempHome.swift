@@ -431,7 +431,6 @@ final class GameInjector: ObservableObject {
 
     @Published var isWorking = false
     @Published var statusText: String = ""
-    @Published var alertItem: TempAlertItem?
 
     /// Resolve target app: fixed bid first, then display-name match.
     private func resolveApp(_ target: GameTarget) -> (bid: String, url: URL)? {
@@ -456,24 +455,31 @@ final class GameInjector: ObservableObject {
         guard !isWorking else { return }
         isWorking = true
         statusText = "正在处理…"
+        let engine = ImportEngine.shared
+        engine.log("🚀 \(target.buttonTitle)：开始处理")
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
 
             // 1. resolve app
             guard let targetApp = self.resolveApp(target) else {
+                engine.log("❌ 未找到已安装的目标 App")
                 self.finish(alertOnly: "未找到「\(target.buttonTitle.replacingOccurrences(of: "启动", with: ""))」对应的已安装 App，请确认游戏已安装。")
                 return
             }
             let bid = targetApp.bid
             let bundleURL = targetApp.url
+            engine.log("🩺 目标 App：\(bid)")
 
             // 2. resolve plugins
             let plugins = stash.plugins(matching: target.pluginKeywords)
             guard !plugins.isEmpty else {
+                engine.log("❌ 暂存箱无匹配插件（关键词：\(target.pluginKeywords.joined(separator: "/"))）")
                 self.finish(alertOnly: "暂存箱中没有匹配「\(target.buttonTitle.replacingOccurrences(of: "启动", with: ""))」的插件。\n请先把对应的 dylib 放入暂存箱（文件名需包含“\(target.appNameKeywords.first ?? "")”）再试。")
                 return
             }
+            let names = plugins.map { $0.lastPathComponent }.joined(separator: ", ")
+            engine.log("💉 匹配到 \(plugins.count) 个插件：\(names)，开始注入…")
 
             DispatchQueue.main.async { self.statusText = "正在加载 \(plugins.count) 个插件…" }
 
@@ -485,18 +491,28 @@ final class GameInjector: ObservableObject {
             do {
                 let injector = try InjectorV3(bundleURL, loggerType: .os)
                 try injector.inject(plugins, shouldPersist: false)
+                engine.log("✅ 注入完成")
 
                 // 5. record session + spawn detached watchdog
                 let manager = TempInjectManager.shared
                 try manager.writeState(bid: bid, assetURLs: plugins)
                 try manager.spawnWatchdog(bid: bid)
+                engine.log("🐕 看门狗已启动（退出游戏后自动还原）")
 
                 // 6. jump to the game
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    manager.launchApp(bid: bid)
+                    let launched = manager.launchApp(bid: bid)
+                    engine.log(launched ? "📲 跳转指令已发送" : "⚠️ 跳转指令发送失败，请手动打开游戏")
+                    if !launched {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            let retry = manager.launchApp(bid: bid)
+                            engine.log(retry ? "📲 重试跳转成功" : "❌ 重试跳转仍失败，请手动打开游戏")
+                        }
+                    }
                 }
                 self.finish(success: "插件已加载，正在打开游戏。退出游戏后插件自动移除。")
             } catch {
+                engine.log("❌ 注入失败：\(error.localizedDescription)")
                 self.finish(alertOnly: "加载失败：\(error.localizedDescription)")
             }
         }
@@ -506,7 +522,7 @@ final class GameInjector: ObservableObject {
         DispatchQueue.main.async {
             self.isWorking = false
             self.statusText = ""
-            self.alertItem = TempAlertItem(title: "提示", message: message)
+            ImportEngine.shared.notice = TempAlertItem(title: "提示", message: message)
         }
     }
 
@@ -514,7 +530,7 @@ final class GameInjector: ObservableObject {
         DispatchQueue.main.async {
             self.isWorking = false
             self.statusText = ""
-            self.alertItem = TempAlertItem(title: "完成", message: message)
+            ImportEngine.shared.notice = TempAlertItem(title: "完成", message: message)
         }
     }
 }
@@ -559,6 +575,17 @@ struct TempHomeView: View {
                         }
                     }
                 }
+
+                if !engine.logs.isEmpty {
+                    Section(header: Text("运行日志")) {
+                        ForEach(engine.logs.suffix(6), id: \.self) { line in
+                            Text(line)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .lineLimit(3)
+                        }
+                    }
+                }
             }
             .listStyle(.insetGrouped)
             .navigationTitle("游戏注入")
@@ -575,9 +602,6 @@ struct TempHomeView: View {
                 // Receive files shared in from Files app / WeChat "open in" etc.
                 ImportEngine.shared.log("📩 收到共享文件：\(url.lastPathComponent)")
                 ImportEngine.shared.importURLs([url], source: "共享")
-            }
-            .alert(item: $injector.alertItem) { item in
-                Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
             }
             .alert(item: $engine.notice) { item in
                 Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
