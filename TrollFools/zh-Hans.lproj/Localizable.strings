@@ -1,0 +1,317 @@
+/* No comment provided by engineer. */
+"%@ exited with code %d" = "%@ 意外退出，返回值 %d";
+
+/* StripedTextTableViewController */
+"%@ rows not loaded" = "%@ 行未加载";
+
+/* No comment provided by engineer. */
+"%@ terminated with signal %d" = "%@ 意外终止，未捕获的信号 %d";
+
+/* No comment provided by engineer. */
+"%ld Plug-Ins of “%@”" = "“%2$@” 的 %1$ld 个插件";
+
+/* No comment provided by engineer. */
+"Advanced Settings" = "高级选项";
+
+/* No comment provided by engineer. */
+"Advertisement" = "广告";
+
+/* No comment provided by engineer. */
+"After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them." = "App 更新后，所有已注入的插件都会被禁用。你需要手动重新启用它们。";
+
+/* No comment provided by engineer. */
+"All" = "所有应用";
+
+/* No comment provided by engineer. */
+"All Applications" = "所有应用";
+
+/* No comment provided by engineer. */
+"And %d more unsupported user applications." = "另有 %d 个不支持的用户应用。";
+
+/* No comment provided by engineer. */
+"Are you sure you want to eject all plug-ins? This action cannot be undone." = "你确定要推出所有插件吗？此操作无法撤销。";
+
+/* No comment provided by engineer. */
+"Bringing back the most advanced system and security analysis tool." = "最强大的系统和安全分析工具，再次归来。";
+
+/* No comment provided by engineer. */
+"Buy our paid products to support us if you like TrollFools!" = "如果你喜欢巨魔注入器，请购买我们的付费产品以支持我们！";
+
+/* StripedTextTableViewController */
+"Cancel" = "取消";
+
+/* No comment provided by engineer. */
+"Cannot parse text with UTF-8 encoding: “%@”." = "无法使用 UTF-8 编码解析文本：“%@”。";
+
+/* No comment provided by engineer. */
+"Completed" = "已完成";
+
+/* No comment provided by engineer. */
+"Completed with compatibility mode. The plug-in may start working after opening some app features." = "已通过兼容模式完成注入。插件可能在打开应用内部分功能后才会生效。";
+
+/* StripedTextTableViewController */
+"Confirm" = "确认";
+
+/* No comment provided by engineer. */
+"Continue" = "继续";
+
+/* No comment provided by engineer. */
+"Continue and Don’t Show Again" = "继续且不再提示";
+
+/* StripedTextTableViewController */
+"Copy" = "拷贝";
+
+/* No comment provided by engineer. */
+"Copyright" = "版权所有";
+
+/* No comment provided by engineer. */
+"Disable All" = "全部禁用";
+
+/* StripedTextTableViewController */
+"Do you want to clear this log file “%@”?" = "你确定要清空日志文件 “%@” 吗？";
+
+/* No comment provided by engineer. */
+"Done" = "完成";
+
+/* No comment provided by engineer. */
+"Enable Compatibility Fallback" = "启用兼容模式回退";
+
+/* No comment provided by engineer. */
+"Eject" = "推出";
+
+/* No comment provided by engineer. */
+"Eject All" = "全部推出";
+
+/* No comment provided by engineer. */
+"Enable All" = "全部启用";
+
+/* No comment provided by engineer. */
+"Error" = "错误";
+
+/* No comment provided by engineer. */
+"Export" = "导出";
+
+/* No comment provided by engineer. */
+"Export All" = "全部导出";
+
+/* No comment provided by engineer. */
+"Failed" = "失败";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleExecutable in: %@" = "找不到 %@ 中的 CFBundleExecutable。";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleIdentifier in: %@" = "找不到 %@ 中的 CFBundleIdentifier";
+
+/* No comment provided by engineer. */
+"Failed to locate main executable: %@" = "找不到主要可执行文件：%@";
+
+/* No comment provided by engineer. */
+"Failed to parse: %@" = "无法解析：%@";
+
+/* No comment provided by engineer. */
+"Fast" = "快速";
+
+/* No comment provided by engineer. */
+"Fast, feature-rich VNC server for iOS: remote control made simple." = "功能强大的 iOS VNC 服务器：远程控制，从未如此简单。";
+
+/* No comment provided by engineer. */
+"If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended." = "当常规方式效果不稳定时，TrollFools 会自动尝试兼容模式以提高成功率。建议保持开启。";
+
+/* No comment provided by engineer. */
+"Filza (URL Scheme) Not Installed" = "未安装支持 URL Scheme 的 Filza";
+
+/* No comment provided by engineer. */
+"Full-Fledged Automation Framework for TrollStore." = "适用于 TrollStore 的全功能自动化框架。";
+
+/* No comment provided by engineer. */
+"Hide" = "隐藏";
+
+/* No comment provided by engineer. */
+"If you do not know what these options mean, please do not change them." = "如果你不知道这些选项的含义，请不要更改。";
+
+/* No comment provided by engineer. */
+"Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option." = "选择 TrollFools 尝试注入目标的方式。如果插件没有按预期工作，可以切换到其他选项再试。";
+
+/* No comment provided by engineer. */
+"Includes Disabled PlugIns" = "包含已禁用的插件";
+
+/* No comment provided by engineer. */
+"Inject" = "注入";
+
+/* No comment provided by engineer. */
+"Injectable System Applications" = "可注入的系统应用";
+
+/* No comment provided by engineer. */
+"Injected Plug-Ins" = "已注入的插件";
+
+/* No comment provided by engineer. */
+"Injecting" = "注入中";
+
+/* No comment provided by engineer. */
+"Injection" = "注入";
+
+/* No comment provided by engineer. */
+"Injection Strategy" = "注入策略";
+
+/* No comment provided by engineer. */
+"Launch" = "启动";
+
+/* No comment provided by engineer. */
+"Lessica, huami1314, iosdump and other contributors" = "Lessica, huami1314, iosdump 及其他贡献者";
+
+/* No comment provided by engineer. */
+"Lexicographic" = "字典序";
+
+/* No comment provided by engineer. */
+"Lock Version" = "锁定版本";
+
+/* StripedTextTableViewController */
+"Log Viewer" = "日志查看器";
+
+/* No comment provided by engineer. */
+"Manage" = "管理";
+
+/* No comment provided by engineer. */
+"Manage %d Plug-Ins" = "管理 %d 个插件";
+
+/* No comment provided by engineer. */
+"New version %@ available!" = "有新版本 %@ 可用！";
+
+/* No comment provided by engineer. */
+"No Applications" = "没有找到符合条件的应用程序";
+
+/* No comment provided by engineer. */
+"No dylib found in the Debian package." = "在 Debian 软件包中找不到可以注入的插件。";
+
+/* No comment provided by engineer. */
+"No eligible framework found." = "没有找到符合条件的框架。";
+
+/* No comment provided by engineer. */
+"No eligible framework found.\n\nIt is usually not a bug with TrollFools itself, but rather with the target app. You may re-install that from App Store. You can’t use TrollFools with apps installed via “Asspp” or tweaks like “NoAppThinning”." = "没有找到符合条件的框架。\n\n通常情况下，这不是 TrollFools 自身的问题，而是目标应用程序的问题。你可能需要从 App Store 重新安装该应用。你不能在通过 “爱啪思道” 或 “NoAppThinning” 等方式安装的应用程序上使用 TrollFools。";
+
+/* No comment provided by engineer. */
+"No Injected Plug-Ins" = "没有已注入的插件";
+
+/* No comment provided by engineer. */
+"No valid plug-ins found." = "没有找到有效的插件。";
+
+/* No comment provided by engineer. */
+"Notice" = "提示";
+
+/* No comment provided by engineer. */
+"Only removable system applications are eligible and listed." = "仅列出可移除的系统应用，其他系统应用不支持注入。";
+
+/* No comment provided by engineer. */
+"Patched" = "已注入";
+
+/* No comment provided by engineer. */
+"Pinned Version" = "已固定版本";
+
+/* No comment provided by engineer. */
+"Plug-Ins" = "插件列表";
+
+/* No comment provided by engineer. */
+"Post-order" = "后置";
+
+/* No comment provided by engineer. */
+"Pre-order" = "前置";
+
+/* No comment provided by engineer. */
+"Prefer Main Executable" = "优先处理主要可执行文件";
+
+/* No comment provided by engineer. */
+"Try the app’s main file first. Turn this on when the plug-in does not seem active." = "先尝试应用主程序。若插件没有生效，可开启此项再试。";
+
+/* No comment provided by engineer. */
+"Rebuild Icon Cache" = "重建图标缓存";
+
+/* No comment provided by engineer. */
+"Record your phone calls like never before." = "通话录音，从未如此简单。";
+
+/* No comment provided by engineer. */
+"Reveil" = "Reveil";
+
+/* No comment provided by engineer. */
+"Search Patched…" = "搜索 已注入…";
+
+/* No comment provided by engineer. */
+"Search…" = "搜索…";
+
+/* No comment provided by engineer. */
+"Select an application to view details." = "选择一个应用程序以查看详情。";
+
+/* No comment provided by engineer. */
+"Select Application to Inject" = "选择应用程序进行注入";
+
+/* No comment provided by engineer. */
+"Show in Filza" = "在 Filza 中显示";
+
+/* No comment provided by engineer. */
+"Show Patched Only" = "仅显示已注入的";
+
+/* No comment provided by engineer. */
+"Some plug-ins were not injected by TrollFools, please eject them with caution." = "部分插件可能并非由 TrollFools 注入，移除它们可能会造成应用程序异常，请谨慎操作。";
+
+/* No comment provided by engineer. */
+"Source Code" = "获取源代码";
+
+/* No comment provided by engineer. */
+"System" = "系统应用";
+
+/* No comment provided by engineer. */
+"The content of text file “%@” is empty." = "文本文件 “%@” 的内容为空。";
+
+/* No comment provided by engineer. */
+"This is an advertisement." = "这是一则广告。";
+
+/* No comment provided by engineer. */
+"TrollFools" = "巨魔注入器";
+
+/* No comment provided by engineer. */
+"TrollRecorder" = "巨魔录音机";
+
+/* No comment provided by engineer. */
+"TrollStore" = "巨魔应用";
+
+/* No comment provided by engineer. */
+"TrollStore Applications" = "巨魔应用";
+
+/* No comment provided by engineer. */
+"TrollVNC" = "TrollVNC";
+
+/* No comment provided by engineer. */
+"Unable to locate the data archive in the Debian package." = "无法在 Debian 软件包中找到数据归档。";
+
+/* No comment provided by engineer. */
+"Unlock Version" = "解锁版本";
+
+/* No comment provided by engineer. */
+"Use Weak Reference" = "创建弱引用";
+
+/* No comment provided by engineer. */
+"Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases." = "控制插件找不到时 App 是否闪退。在某些场景下，保持开启可减少意外闪退，尽管此时插件无法生效。";
+
+/* No comment provided by engineer. */
+"User" = "用户应用";
+
+/* No comment provided by engineer. */
+"User Applications" = "用户应用";
+
+/* No comment provided by engineer. */
+"View Logs" = "查看日志";
+
+/* No comment provided by engineer. */
+"XXTouch Elite TS" = "XXTouch Elite TS";
+
+/* No comment provided by engineer. */
+"You need to rebuild the icon cache in TrollStore to apply changes." = "你需要在 TrollStore 中重建图标缓存以应用更改。";
+
+/* No comment provided by engineer. */
+"You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing." = "你至少选择了一个 Debian 软件包 “%@”。请留意，它通常不会像在越狱环境当中那样工作，甚至完全不起作用。请确保你知道自己在做些什么。";
+
+/* TempInject */
+"TempInjectAndLaunch (%@)" = "临时注入并启动（%@）";
+"ChoosePlugInsAndTempInject" = "选择插件 · 临时注入并启动";
+"TempInjectSuccessHint" = "已临时注入并启动目标 App。\n退出目标 App 后会自动还原：重新打开目标 App 将不再加载插件。\n再次使用请回到本工具点击注入。";
+"TempInjectCLIMissing" = "未找到 trollfoolscli 组件，无法启动自动还原看门狗。";

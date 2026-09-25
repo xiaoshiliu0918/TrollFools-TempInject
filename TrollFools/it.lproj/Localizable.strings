@@ -1,0 +1,311 @@
+/* No comment provided by engineer. */
+"%@ exited with code %d" = "%@ uscito col codice %d";
+
+/* StripedTextTableViewController */
+"%@ rows not loaded" = "%@ rows non caricati";
+
+/* No comment provided by engineer. */
+"%@ terminated with signal %d" = "%@ terminato col segnale %d";
+
+/* TODO */
+"%ld Plug-Ins of “%@”" = "%1$ld Plug-Ins of “%2$@”";
+
+/* No comment provided by engineer. */
+"Advanced Settings" = "Impostazioni Avanzate";
+
+/* No comment provided by engineer. */
+"Advertisement" = "Advertisement";
+
+/* TODO */
+"After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them." = "After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them.";
+
+/* TODO */
+"All" = "All";
+
+/* TODO */
+"All Applications" = "All Applications";
+
+/* No comment provided by engineer. */
+"And %d more unsupported user applications." = "E %d più non supportate dalle applicazioni.";
+
+/* TODO */
+"Are you sure you want to eject all plug-ins? This action cannot be undone." = "Are you sure you want to eject all plug-ins? This action cannot be undone.";
+
+/* No comment provided by engineer. */
+"Bringing back the most advanced system and security analysis tool." = "Portiamo indietro il più avanzato strumento di analisi di sistema e della sicurezza.";
+
+/* TODO */
+"Buy our paid products to support us if you like TrollFools!" = "Buy our paid products to support us if you like TrollFools!";
+
+/* StripedTextTableViewController */
+"Cancel" = "Cancella";
+
+/* No comment provided by engineer. */
+"Cannot parse text with UTF-8 encoding: “%@”." = "Impossibile usare il testo con la codifica UTF-8: “%@”.";
+
+/* No comment provided by engineer. */
+"Completed" = "Completato";
+
+/* TODO */
+"Completed with compatibility mode. The plug-in may start working after opening some app features." = "Completed with compatibility mode. The plug-in may start working after opening some app features.";
+
+/* StripedTextTableViewController */
+"Confirm" = "Conferma";
+
+/* TODO */
+"Continue" = "Continue";
+
+/* TODO */
+"Continue and Don’t Show Again" = "Continue and Don’t Show Again";
+
+/* StripedTextTableViewController */
+"Copy" = "Copia";
+
+/* No comment provided by engineer. */
+"Copyright" = "Copyright";
+
+/* TODO */
+"Disable All" = "Disable All";
+
+/* StripedTextTableViewController */
+"Do you want to clear this log file “%@”?" = "Vuoi cancellare questo log “%@”?";
+
+/* No comment provided by engineer. */
+"Done" = "Fatto";
+
+/* TODO */
+"Enable Compatibility Fallback" = "Enable Compatibility Fallback";
+
+/* No comment provided by engineer. */
+"Eject" = "Espelli";
+
+/* No comment provided by engineer. */
+"Eject All" = "Espelli Tutti";
+
+/* TODO */
+"Enable All" = "Enable All";
+
+/* No comment provided by engineer. */
+"Error" = "Errore";
+
+/* TODO */
+"Export" = "Export";
+
+/* TODO */
+"Export All" = "Export All";
+
+/* No comment provided by engineer. */
+"Failed" = "Fallito";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleExecutable in: %@" = "Impossibile trovare l'entrata CFBundleExecutable in: %@";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleIdentifier in: %@" = "Impossibile trovare l'entrata CFBundleIdentifier in: %@";
+
+/* No comment provided by engineer. */
+"Failed to locate main executable: %@" = "Impossibile trovare l'eseguibile principale: %@";
+
+/* No comment provided by engineer. */
+"Failed to parse: %@" = "Impossibile scrivere: %@";
+
+/* No comment provided by engineer. */
+"Fast" = "Veloce";
+
+/* TODO */
+"Fast, feature-rich VNC server for iOS: remote control made simple." = "Fast, feature-rich VNC server for iOS: remote control made simple.";
+
+/* TODO */
+"If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended." = "If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended.";
+
+/* No comment provided by engineer. */
+"Filza (URL Scheme) Not Installed" = "Filza (URL Scheme) Non Installato";
+
+/* TODO */
+"Full-Fledged Automation Framework for TrollStore." = "Full-Fledged Automation Framework for TrollStore.";
+
+/* No comment provided by engineer. */
+"Hide" = "Hide";
+
+/* No comment provided by engineer. */
+"If you do not know what these options mean, please do not change them." = "Se non sai cosa significano queste opzioni, non cambiarle.";
+
+/* TODO */
+"Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option." = "Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option.";
+
+/* TODO */
+"Includes Disabled PlugIns" = "Includes Disabled PlugIns";
+
+/* No comment provided by engineer. */
+"Inject" = "Inietta";
+
+/* No comment provided by engineer. */
+"Injectable System Applications" = "Applicazioni di Sistema Iniettabili";
+
+/* No comment provided by engineer. */
+"Injected Plug-Ins" = "Inietta Plug-In";
+
+/* No comment provided by engineer. */
+"Injecting" = "Inietto";
+
+/* No comment provided by engineer. */
+"Injection" = "Inietazione";
+
+/* No comment provided by engineer. */
+"Injection Strategy" = "Strategia Inietazione";
+
+/* No comment provided by engineer. */
+"Launch" = "Lancia";
+
+/* TODO */
+"Lessica, huami1314, iosdump and other contributors" = "Lessica, huami1314, iosdump and other contributors";
+
+/* No comment provided by engineer. */
+"Lexicographic" = "Lessicografico";
+
+/* No comment provided by engineer. */
+"Lock Version" = "Blocca Versione";
+
+/* StripedTextTableViewController */
+"Log Viewer" = "Visualizzatore Log";
+
+/* TODO */
+"Manage" = "Manage";
+
+/* TODO */
+"Manage %d Plug-Ins" = "Manage %d Plug-Ins";
+
+/* TODO */
+"New version %@ available!" = "New version %@ available!";
+
+/* No comment provided by engineer. */
+"No Applications" = "No Applications";
+
+/* TODO */
+"No dylib found in the Debian package." = "No dylib found in the Debian package.";
+
+/* No comment provided by engineer. */
+"No eligible framework found." = "Nessun framework eleggibile trovato.";
+
+/* No comment provided by engineer. */
+"No eligible framework found.\n\nIt is usually not a bug with TrollFools itself, but rather with the target app. You may re-install that from App Store. You can’t use TrollFools with apps installed via “Asspp” or tweaks like “NoAppThinning”." = "Nessun framework eleggibile trovato.\n\nIt di solito non è un bug di TrollFools, ma con l'app. Dovresti reinstallarla dall'App Store. Non puoi usare TrollFools con app installate via “Asspp” o tweak come “NoAppThinning”.";
+
+/* No comment provided by engineer. */
+"No Injected Plug-Ins" = "Non ci sono Plug-In iniettati";
+
+/* No comment provided by engineer. */
+"No valid plug-ins found." = "Nessun plug-in valido trovato.";
+
+/* TODO */
+"Notice" = "Notice";
+
+/* No comment provided by engineer. */
+"Only removable system applications are eligible and listed." = "Solo le applicazioni di sistema removibili sono eleggibili e nella lista.";
+
+/* No comment provided by engineer. */
+"Patched" = "Ho applicato la patch";
+
+/* No comment provided by engineer. */
+"Pinned Version" = "Versione Fissata";
+
+/* No comment provided by engineer. */
+"Plug-Ins" = "Plug-In";
+
+/* No comment provided by engineer. */
+"Post-order" = "Post-ordine";
+
+/* No comment provided by engineer. */
+"Pre-order" = "Pre-ordine";
+
+/* No comment provided by engineer. */
+"Prefer Main Executable" = "Preferisci Eseguibile Principale";
+
+/* TODO */
+"Try the app’s main file first. Turn this on when the plug-in does not seem active." = "Try the app’s main file first. Turn this on when the plug-in does not seem active.";
+
+/* No comment provided by engineer. */
+"Rebuild Icon Cache" = "Ricrostruisci Cache Icone";
+
+/* No comment provided by engineer. */
+"Record your phone calls like never before." = "Registra le tue chiamate come niente prima.";
+
+/* No comment provided by engineer. */
+"Reveil" = "Rivela";
+
+/* No comment provided by engineer. */
+"Search Patched…" = "Cerca con Patch…";
+
+/* No comment provided by engineer. */
+"Search…" = "Cerca…";
+
+/* TODO */
+"Select an application to view details." = "Select an application to view details.";
+
+/* No comment provided by engineer. */
+"Select Application to Inject" = "Scegli Applicazione da Iniettare";
+
+/* No comment provided by engineer. */
+"Show in Filza" = "Mostra in Filza";
+
+/* No comment provided by engineer. */
+"Show Patched Only" = "Mostra solo con patch";
+
+/* No comment provided by engineer. */
+"Some plug-ins were not injected by TrollFools, please eject them with caution." = "Alcuni plug-in non sono stati iniettati da TrollFools, espellili con cautela.";
+
+/* No comment provided by engineer. */
+"Source Code" = "Codice Sorgente";
+
+/* TODO */
+"System" = "System";
+
+/* No comment provided by engineer. */
+"The content of text file “%@” is empty." = "Il contenuto del file “%@” è vuoto.";
+
+/* TODO */
+"This is an advertisement." = "This is an advertisement.";
+
+/* No comment provided by engineer. */
+"TrollFools" = "TrollFools";
+
+/* No comment provided by engineer. */
+"TrollRecorder" = "TrollRecorder";
+
+/* No comment provided by engineer. */
+"TrollStore" = "TrollStore";
+
+/* No comment provided by engineer. */
+"TrollStore Applications" = "Applicazioni TrollStore";
+
+/* TODO */
+"TrollVNC" = "TrollVNC";
+
+/* TODO */
+"Unable to locate the data archive in the Debian package." = "Unable to locate the data archive in the Debian package.";
+
+/* No comment provided by engineer. */
+"Unlock Version" = "Sblocca Versione";
+
+/* No comment provided by engineer. */
+"Use Weak Reference" = "Usa referenza debole";
+
+/* TODO */
+"Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases." = "Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases.";
+
+/* TODO */
+"User" = "User";
+
+/* No comment provided by engineer. */
+"User Applications" = "Applicazioni";
+
+/* No comment provided by engineer. */
+"View Logs" = "Mostra Log";
+
+/* TODO */
+"XXTouch Elite TS" = "XXTouch Elite TS";
+
+/* No comment provided by engineer. */
+"You need to rebuild the icon cache in TrollStore to apply changes." = "Devi ricostruire la cache delle icone in TrollStore per applicare le modifiche.";
+
+/* TODO */
+"You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing." = "You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing.";

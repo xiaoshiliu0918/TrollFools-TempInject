@@ -1,0 +1,311 @@
+/* No comment provided by engineer. */
+"%@ exited with code %d" = "%@ thoát với mã %d";
+
+/* No comment provided by engineer. */
+"%@ rows not loaded" = "%@ dòng chưa được tải.";
+
+/* No comment provided by engineer. */
+"%@ terminated with signal %d" = "%@ đã kết thúc với tín hiệu %d";
+
+/* TODO */
+"%ld Plug-Ins of “%@”" = "%1$ld Plug-Ins of “%2$@”";
+
+/* No comment provided by engineer. */
+"Advanced Settings" = "Cài đặt nâng cao";
+
+/* No comment provided by engineer. */
+"Advertisement" = "Quảng Cáo";
+
+/* No comment provided by engineer. */
+"After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them." = "Sau khi nâng cấp ứng dụng, bất kỳ plugin nào đã được tiêm sẽ bị vô hiệu hóa. Bạn sẽ cần phải kích hoạt lại chúng một cách thủ công.";
+
+/* No comment provided by engineer. */
+"All" = "Tất cả";
+
+/* No comment provided by engineer. */
+"All Applications" = "Tất cả ứng dụng";
+
+/* No comment provided by engineer. */
+"And %d more unsupported user applications." = "Có %d ứng dụng người dùng không được hỗ trợ.";
+
+/* No comment provided by engineer. */
+"Are you sure you want to eject all plug-ins? This action cannot be undone." = "Bạn có chắc chắn muốn gỡ bỏ tất cả plug-in không? Hành động này không thể hoàn tác.";
+
+/* No comment provided by engineer. */
+"Bringing back the most advanced system and security analysis tool." = "Mang trở lại công cụ phân tích hệ thống và bảo mật tiên tiến nhất.";
+
+/* No comment provided by engineer. */
+"Buy our paid products to support us if you like TrollFools!" = "Mua sản phẩm trả phí của chúng tôi để ủng hộ chúng tôi nếu bạn thích TrollFools!";
+
+/* No comment provided by engineer. */
+"Cancel" = "Hủy";
+
+/* No comment provided by engineer. */
+"Cannot parse text with UTF-8 encoding: “%@”." = "Không thể phân tích văn bản với mã hóa UTF-8: “%@”.";
+
+/* No comment provided by engineer. */
+"Completed" = "Hoàn thành";
+
+/* TODO */
+"Completed with compatibility mode. The plug-in may start working after opening some app features." = "Completed with compatibility mode. The plug-in may start working after opening some app features.";
+
+/* No comment provided by engineer. */
+"Confirm" = "Xác nhận";
+
+/* No comment provided by engineer. */
+"Continue" = "Tiếp tục";
+
+/* No comment provided by engineer. */
+"Continue and Don’t Show Again" = "Tiếp tục và không hiển thị lại";
+
+/* No comment provided by engineer. */
+"Copy" = "Sao chép";
+
+/* No comment provided by engineer. */
+"Copyright" = "Bản quyền";
+
+/* No comment provided by engineer. */
+"Disable All" = "Vô hiệu hóa tất cả";
+
+/* No comment provided by engineer. */
+"Do you want to clear this log file “%@”?" = "Bạn có muốn xóa tệp nhật ký này “%@”?";
+
+/* No comment provided by engineer. */
+"Done" = "Hoàn thành";
+
+/* TODO */
+"Enable Compatibility Fallback" = "Enable Compatibility Fallback";
+
+/* No comment provided by engineer. */
+"Eject" = "Gỡ bỏ";
+
+/* No comment provided by engineer. */
+"Eject All" = "Gỡ bỏ tất cả";
+
+/* No comment provided by engineer. */
+"Enable All" = "Bật tất cả";
+
+/* No comment provided by engineer. */
+"Error" = "Lỗi";
+
+/* No comment provided by engineer. */
+"Export" = "Xuất ra";
+
+/* No comment provided by engineer. */
+"Export All" = "Xuất tất cả";
+
+/* No comment provided by engineer. */
+"Failed" = "Thất bại";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleExecutable in: %@" = "Không tìm thấy mục CFBundleExecutable trong: %@";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleIdentifier in: %@" = "Không tìm thấy mục CFBundleIdentifier trong: %@";
+
+/* No comment provided by engineer. */
+"Failed to locate main executable: %@" = "Không tìm thấy tệp thực thi chính: %@";
+
+/* No comment provided by engineer. */
+"Failed to parse: %@" = "Không thể phân tích: %@";
+
+/* No comment provided by engineer. */
+"Fast" = "Tiêm nhanh";
+
+/* No comment provided by engineer. */
+"Fast, feature-rich VNC server for iOS: remote control made simple." = "Máy chủ VNC nhanh, nhiều tính năng cho iOS: điều khiển từ xa trở nên đơn giản.";
+
+/* No comment provided by engineer. */
+"If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended." = "Nếu cần, TrollFools sẽ sử dụng chế độ tương thích để cải thiện tỷ lệ thành công. Nên bật chế độ này.";
+
+/* No comment provided by engineer. */
+"Filza (URL Scheme) Not Installed" = "Filza (URL Scheme) chưa được cài đặt.";
+
+/* No comment provided by engineer. */
+"Full-Fledged Automation Framework for TrollStore." = "Framework tự động hóa toàn diện cho TrollStore.";
+
+/* No comment provided by engineer. */
+"Hide" = "Ẩn";
+
+/* No comment provided by engineer. */
+"If you do not know what these options mean, please do not change them." = "Nếu bạn không biết các tùy chọn này có ý nghĩa gì, đừng thay đổi chúng.";
+
+/* No comment provided by engineer. */
+"Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option." = "Chọn cách TrollFools thử các mục tiêu tiềm năng. Nếu plugin không hoạt động như mong đợi, hãy thử tùy chọn khác.";
+
+/* No comment provided by engineer. */
+"Includes Disabled PlugIns" = "Bao gồm PlugIns bị vô hiệu hóa";
+
+/* No comment provided by engineer. */
+"Inject" = "Tiêm";
+
+/* No comment provided by engineer. */
+"Injectable System Applications" = "Ứng dụng hệ thống có thể tiêm";
+
+/* No comment provided by engineer. */
+"Injected Plug-Ins" = "Plug-in đã tiêm";
+
+/* No comment provided by engineer. */
+"Injecting" = "Đang tiêm";
+
+/* No comment provided by engineer. */
+"Injection" = "Nâng cao";
+
+/* No comment provided by engineer. */
+"Injection Strategy" = "Phương pháp tiêm";
+
+/* No comment provided by engineer. */
+"Launch" = "Mở ứng dụng";
+
+/* No comment provided by engineer. */
+"Lessica, huami1314, iosdump and other contributors" = "Lessica, huami1314, iosdump và các cộng tác viên khác";
+
+/* No comment provided by engineer. */
+"Lexicographic" = "Theo thứ tự từ điển";
+
+/* No comment provided by engineer. */
+"Lock Version" = "Khóa phiên bản";
+
+/* No comment provided by engineer. */
+"Log Viewer" = "Trình xem nhật ký";
+
+/* No comment provided by engineer. */
+"Manage" = "Quản lý";
+
+/* No comment provided by engineer. */
+"Manage %d Plug-Ins" = "Quản lý %d Plug-Ins";
+
+/* No comment provided by engineer. */
+"New version %@ available!" = "Phiên bản mới %@ có sẵn!";
+
+/* No comment provided by engineer. */
+"No Applications" = "Không có ứng dụng nào";
+
+/* No comment provided by engineer. */
+"No dylib found in the Debian package." = "Không tìm thấy dylib trong gói Debian.";
+
+/* No comment provided by engineer. */
+"No eligible framework found." = "Không tìm thấy framework đủ điều kiện.";
+
+/* No comment provided by engineer. */
+"No eligible framework found.\n\nIt is usually not a bug with TrollFools itself, but rather with the target app. You may re-install that from App Store. You can’t use TrollFools with apps installed via “Asspp” or tweaks like “NoAppThinning”." = "Không tìm thấy framework hợp lệ.\n\nĐây thường không phải là lỗi của TrollFools, mà là lỗi của ứng dụng đang tiêm. Bạn có thể cài đặt lại ứng dụng đó từ App Store.\n\nBạn không thể sử dụng TrollFools với các ứng dụng được cài đặt qua “Asspp” hoặc các tinh chỉnh như “NoAppThinning”.";
+
+/* No comment provided by engineer. */
+"No Injected Plug-Ins" = "Không có plug-in nào được tiêm";
+
+/* No comment provided by engineer. */
+"No valid plug-ins found." = "Không tìm thấy plug-in hợp lệ.";
+
+/* No comment provided by engineer. */
+"Notice" = "Lưu Ý";
+
+/* No comment provided by engineer. */
+"Only removable system applications are eligible and listed." = "Chỉ các ứng dụng hệ thống có thể gỡ bỏ và đủ điều kiện tiêm mới được liệt kê.";
+
+/* No comment provided by engineer. */
+"Patched" = "Đã sửa đổi";
+
+/* No comment provided by engineer. */
+"Pinned Version" = "Phiên bản ghim";
+
+/* No comment provided by engineer. */
+"Plug-Ins" = "Plug-Ins";
+
+/* No comment provided by engineer. */
+"Post-order" = "Theo thứ tự hậu thứ";
+
+/* No comment provided by engineer. */
+"Pre-order" = "Theo thứ tự tiền thứ";
+
+/* No comment provided by engineer. */
+"Prefer Main Executable" = "Ưu tiên tệp thực thi chính";
+
+/* No comment provided by engineer. */
+"Try the app’s main file first. Turn this on when the plug-in does not seem active." = "Hãy thử tệp chính của ứng dụng trước. Bật tệp này lên khi plugin dường như không hoạt động.";
+
+/* No comment provided by engineer. */
+"Rebuild Icon Cache" = "Làm mới bộ nhớ đệm biểu tượng";
+
+/* No comment provided by engineer. */
+"Record your phone calls like never before." = "Ghi âm cuộc gọi điện thoại của Bạn chưa từng có trước đây.";
+
+/* No comment provided by engineer. */
+"Reveil" = "Reveil";
+
+/* No comment provided by engineer. */
+"Search Patched…" = "Tìm kiếm sửa đổi…";
+
+/* No comment provided by engineer. */
+"Search…" = "Tìm kiếm…";
+
+/* No comment provided by engineer. */
+"Select an application to view details." = "Chọn một ứng dụng để xem chi tiết.";
+
+/* No comment provided by engineer. */
+"Select Application to Inject" = "Chọn ứng dụng để tiêm";
+
+/* No comment provided by engineer. */
+"Show in Filza" = "Hiển thị trong Filza";
+
+/* No comment provided by engineer. */
+"Show Patched Only" = "Chỉ hiển thị đã sửa đổi";
+
+/* No comment provided by engineer. */
+"Some plug-ins were not injected by TrollFools, please eject them with caution." = "Một số plug-in không được tiêm bởi TrollFools, vui lòng loại bỏ chúng một cách cẩn thận.";
+
+/* No comment provided by engineer. */
+"Source Code" = "Mã nguồn";
+
+/* No comment provided by engineer. */
+"System" = "Hệ Thống";
+
+/* No comment provided by engineer. */
+"The content of text file “%@” is empty." = "Nội dung của tệp văn bản “%@” trống.";
+
+/* No comment provided by engineer. */
+"This is an advertisement." = "Đây là một quảng cáo.";
+
+/* No comment provided by engineer. */
+"TrollFools" = "TrollFools";
+
+/* No comment provided by engineer. */
+"TrollRecorder" = "TrollRecorder";
+
+/* No comment provided by engineer. */
+"TrollStore" = "TrollStore";
+
+/* No comment provided by engineer. */
+"TrollStore Applications" = "Ứng dụng TrollStore";
+
+/* No comment provided by engineer. */
+"TrollVNC" = "TrollVNC";
+
+/* No comment provided by engineer. */
+"Unable to locate the data archive in the Debian package." = "Không thể tìm thấy kho lưu trữ dữ liệu trong gói Debian.";
+
+/* No comment provided by engineer. */
+"Unlock Version" = "Mở khóa phiên bản";
+
+/* No comment provided by engineer. */
+"Use Weak Reference" = "Sử dụng tham chiếu yếu";
+
+/* No comment provided by engineer. */
+"Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases." = "Tùy chọn này kiểm soát việc ứng dụng có bị sập khi không tìm thấy plugin hay không. Bật tùy chọn này có thể giảm thiểu các sự cố sập ứng dụng đột ngột trong một số trường hợp, nhưng plugin sẽ không hoạt động trong những trường hợp đó.";
+
+/* No comment provided by engineer. */
+"User" = "Người Dùng";
+
+/* No comment provided by engineer. */
+"User Applications" = "Ứng dụng người dùng";
+
+/* No comment provided by engineer. */
+"View Logs" = "Xem nhật ký";
+
+/* No comment provided by engineer. */
+"XXTouch Elite TS" = "XXTouch Elite TS";
+
+/* No comment provided by engineer. */
+"You need to rebuild the icon cache in TrollStore to apply changes." = "Bạn cần làm mới bộ nhớ đệm biểu tượng trong TrollStore để áp dụng các thay đổi.";
+
+/* No comment provided by engineer. */
+"You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing." = "Bạn đã chọn ít nhất một Gói Debian “%@”. Chúng tôi xin nhắc bạn rằng gói này sẽ không hoạt động như khi sử dụng trong môi trường đã bẻ khóa. Vui lòng đảm bảo bạn biết rõ mình đang làm gì.";

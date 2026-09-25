@@ -1,0 +1,317 @@
+/* No comment provided by engineer. */
+"%@ exited with code %d" = "%@ exited with code %d";
+
+/* StripedTextTableViewController */
+"%@ rows not loaded" = "%@ rows not loaded";
+
+/* No comment provided by engineer. */
+"%@ terminated with signal %d" = "%@ terminated with signal %d";
+
+/* No comment provided by engineer. */
+"%ld Plug-Ins of “%@”" = "%1$ld Plug-Ins of “%2$@”";
+
+/* No comment provided by engineer. */
+"Advanced Settings" = "Advanced Settings";
+
+/* No comment provided by engineer. */
+"Advertisement" = "Advertisement";
+
+/* No comment provided by engineer. */
+"After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them." = "After the app upgrade, any injected plugins will be disabled. You will need to manually re-enable them.";
+
+/* No comment provided by engineer. */
+"All" = "All";
+
+/* No comment provided by engineer. */
+"All Applications" = "All Applications";
+
+/* No comment provided by engineer. */
+"And %d more unsupported user applications." = "And %d more unsupported user applications.";
+
+/* No comment provided by engineer. */
+"Are you sure you want to eject all plug-ins? This action cannot be undone." = "Are you sure you want to eject all plug-ins? This action cannot be undone.";
+
+/* No comment provided by engineer. */
+"Bringing back the most advanced system and security analysis tool." = "Bringing back the most advanced system and security analysis tool.";
+
+/* No comment provided by engineer. */
+"Buy our paid products to support us if you like TrollFools!" = "Buy our paid products to support us if you like TrollFools!";
+
+/* StripedTextTableViewController */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Cannot parse text with UTF-8 encoding: “%@”." = "Cannot parse text with UTF-8 encoding: “%@”.";
+
+/* No comment provided by engineer. */
+"Completed" = "Completed";
+
+/* No comment provided by engineer. */
+"Completed with compatibility mode. The plug-in may start working after opening some app features." = "Completed with compatibility mode. The plug-in may start working after opening some app features.";
+
+/* StripedTextTableViewController */
+"Confirm" = "Confirm";
+
+/* No comment provided by engineer. */
+"Continue" = "Continue";
+
+/* No comment provided by engineer. */
+"Continue and Don’t Show Again" = "Continue and Don’t Show Again";
+
+/* StripedTextTableViewController */
+"Copy" = "Copy";
+
+/* No comment provided by engineer. */
+"Copyright" = "Copyright";
+
+/* No comment provided by engineer. */
+"Disable All" = "Disable All";
+
+/* StripedTextTableViewController */
+"Do you want to clear this log file “%@”?" = "Do you want to clear this log file “%@”?";
+
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
+"Enable Compatibility Fallback" = "Enable Compatibility Fallback";
+
+/* No comment provided by engineer. */
+"Eject" = "Eject";
+
+/* No comment provided by engineer. */
+"Eject All" = "Eject All";
+
+/* No comment provided by engineer. */
+"Enable All" = "Enable All";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
+
+/* No comment provided by engineer. */
+"Export" = "Export";
+
+/* No comment provided by engineer. */
+"Export All" = "Export All";
+
+/* No comment provided by engineer. */
+"Failed" = "Failed";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleExecutable in: %@" = "Failed to find entry CFBundleExecutable in: %@";
+
+/* No comment provided by engineer. */
+"Failed to find entry CFBundleIdentifier in: %@" = "Failed to find entry CFBundleIdentifier in: %@";
+
+/* No comment provided by engineer. */
+"Failed to locate main executable: %@" = "Failed to locate main executable: %@";
+
+/* No comment provided by engineer. */
+"Failed to parse: %@" = "Failed to parse: %@";
+
+/* No comment provided by engineer. */
+"Fast" = "Fast";
+
+/* No comment provided by engineer. */
+"Fast, feature-rich VNC server for iOS: remote control made simple." = "Fast, feature-rich VNC server for iOS: remote control made simple.";
+
+/* No comment provided by engineer. */
+"If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended." = "If needed, TrollFools will use a compatibility mode to improve success rate. Keeping this on is recommended.";
+
+/* No comment provided by engineer. */
+"Filza (URL Scheme) Not Installed" = "Filza (URL Scheme) Not Installed";
+
+/* No comment provided by engineer. */
+"Full-Fledged Automation Framework for TrollStore." = "Full-Fledged Automation Framework for TrollStore.";
+
+/* No comment provided by engineer. */
+"Hide" = "Hide";
+
+/* No comment provided by engineer. */
+"If you do not know what these options mean, please do not change them." = "If you do not know what these options mean, please do not change them.";
+
+/* No comment provided by engineer. */
+"Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option." = "Choose how TrollFools tries possible targets. If the plug-in does not work as expected, try another option.";
+
+/* No comment provided by engineer. */
+"Includes Disabled PlugIns" = "Includes Disabled PlugIns";
+
+/* No comment provided by engineer. */
+"Inject" = "Inject";
+
+/* No comment provided by engineer. */
+"Injectable System Applications" = "Injectable System Applications";
+
+/* No comment provided by engineer. */
+"Injected Plug-Ins" = "Injected Plug-Ins";
+
+/* No comment provided by engineer. */
+"Injecting" = "Injecting";
+
+/* No comment provided by engineer. */
+"Injection" = "Injection";
+
+/* No comment provided by engineer. */
+"Injection Strategy" = "Injection Strategy";
+
+/* No comment provided by engineer. */
+"Launch" = "Launch";
+
+/* No comment provided by engineer. */
+"Lessica, huami1314, iosdump and other contributors" = "Lessica, huami1314, iosdump and other contributors";
+
+/* No comment provided by engineer. */
+"Lexicographic" = "Lexicographic";
+
+/* No comment provided by engineer. */
+"Lock Version" = "Lock Version";
+
+/* StripedTextTableViewController */
+"Log Viewer" = "Log Viewer";
+
+/* No comment provided by engineer. */
+"Manage" = "Manage";
+
+/* No comment provided by engineer. */
+"Manage %d Plug-Ins" = "Manage %d Plug-Ins";
+
+/* No comment provided by engineer. */
+"New version %@ available!" = "New version %@ available!";
+
+/* No comment provided by engineer. */
+"No Applications" = "No Applications";
+
+/* No comment provided by engineer. */
+"No dylib found in the Debian package." = "No dylib found in the Debian package.";
+
+/* No comment provided by engineer. */
+"No eligible framework found." = "No eligible framework found.";
+
+/* No comment provided by engineer. */
+"No eligible framework found.\n\nIt is usually not a bug with TrollFools itself, but rather with the target app. You may re-install that from App Store. You can’t use TrollFools with apps installed via “Asspp” or tweaks like “NoAppThinning”." = "No eligible framework found.\n\nIt is usually not a bug with TrollFools itself, but rather with the target app. You may re-install that from App Store. You can’t use TrollFools with apps installed via “Asspp” or tweaks like “NoAppThinning”.";
+
+/* No comment provided by engineer. */
+"No Injected Plug-Ins" = "No Injected Plug-Ins";
+
+/* No comment provided by engineer. */
+"No valid plug-ins found." = "No valid plug-ins found.";
+
+/* No comment provided by engineer. */
+"Notice" = "Notice";
+
+/* No comment provided by engineer. */
+"Only removable system applications are eligible and listed." = "Only removable system applications are eligible and listed.";
+
+/* No comment provided by engineer. */
+"Patched" = "Patched";
+
+/* No comment provided by engineer. */
+"Pinned Version" = "Pinned Version";
+
+/* No comment provided by engineer. */
+"Plug-Ins" = "Plug-Ins";
+
+/* No comment provided by engineer. */
+"Post-order" = "Post-order";
+
+/* No comment provided by engineer. */
+"Pre-order" = "Pre-order";
+
+/* No comment provided by engineer. */
+"Prefer Main Executable" = "Prefer Main Executable";
+
+/* No comment provided by engineer. */
+"Try the app’s main file first. Turn this on when the plug-in does not seem active." = "Try the app’s main file first. Turn this on when the plug-in does not seem active.";
+
+/* No comment provided by engineer. */
+"Rebuild Icon Cache" = "Rebuild Icon Cache";
+
+/* No comment provided by engineer. */
+"Record your phone calls like never before." = "Record your phone calls like never before.";
+
+/* No comment provided by engineer. */
+"Reveil" = "Reveil";
+
+/* No comment provided by engineer. */
+"Search Patched…" = "Search Patched…";
+
+/* No comment provided by engineer. */
+"Search…" = "Search…";
+
+/* No comment provided by engineer. */
+"Select an application to view details." = "Select an application to view details.";
+
+/* No comment provided by engineer. */
+"Select Application to Inject" = "Select Application to Inject";
+
+/* No comment provided by engineer. */
+"Show in Filza" = "Show in Filza";
+
+/* No comment provided by engineer. */
+"Show Patched Only" = "Show Patched Only";
+
+/* No comment provided by engineer. */
+"Some plug-ins were not injected by TrollFools, please eject them with caution." = "Some plug-ins were not injected by TrollFools, please eject them with caution.";
+
+/* No comment provided by engineer. */
+"Source Code" = "Source Code";
+
+/* No comment provided by engineer. */
+"System" = "System";
+
+/* No comment provided by engineer. */
+"The content of text file “%@” is empty." = "The content of text file “%@” is empty.";
+
+/* No comment provided by engineer. */
+"This is an advertisement." = "This is an advertisement.";
+
+/* No comment provided by engineer. */
+"TrollFools" = "TrollFools";
+
+/* No comment provided by engineer. */
+"TrollRecorder" = "TrollRecorder";
+
+/* No comment provided by engineer. */
+"TrollStore" = "TrollStore";
+
+/* No comment provided by engineer. */
+"TrollStore Applications" = "TrollStore Applications";
+
+/* No comment provided by engineer. */
+"TrollVNC" = "TrollVNC";
+
+/* No comment provided by engineer. */
+"Unable to locate the data archive in the Debian package." = "Unable to locate the data archive in the Debian package.";
+
+/* No comment provided by engineer. */
+"Unlock Version" = "Unlock Version";
+
+/* No comment provided by engineer. */
+"Use Weak Reference" = "Use Weak Reference";
+
+/* No comment provided by engineer. */
+"Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases." = "Controls whether the app crashes when the plug-in cannot be found. Keeping this on can reduce unexpected crashes in some scenarios, but the plug-in will not work in those cases.";
+
+/* No comment provided by engineer. */
+"User" = "User";
+
+/* No comment provided by engineer. */
+"User Applications" = "User Applications";
+
+/* No comment provided by engineer. */
+"View Logs" = "View Logs";
+
+/* No comment provided by engineer. */
+"XXTouch Elite TS" = "XXTouch Elite TS";
+
+/* No comment provided by engineer. */
+"You need to rebuild the icon cache in TrollStore to apply changes." = "You need to rebuild the icon cache in TrollStore to apply changes.";
+
+/* No comment provided by engineer. */
+"You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing." = "You’ve selected at least one Debian Package “%@”. We’re here to remind you that it will not work as it was in a jailbroken environment. Please make sure you know what you’re doing.";
+
+/* TempInject */
+"TempInjectAndLaunch (%@)" = "Temp Inject & Launch (%@)";
+"ChoosePlugInsAndTempInject" = "Choose Plug-Ins · Temp Inject & Launch";
+"TempInjectSuccessHint" = "Temporarily injected and launched. The plug-in will be ejected automatically once the target app exits.\nRe-open the target app directly and it runs clean.\nUse this tool to inject again.";
+"TempInjectCLIMissing" = "trollfoolscli component not found, unable to start the auto-restore watchdog.";
