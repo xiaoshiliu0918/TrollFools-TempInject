@@ -246,6 +246,8 @@ final class GameInjector: ObservableObject {
 struct TempHomeView: View {
 
     @StateObject private var injector = GameInjector.shared
+    @State private var stashCount = 0
+    @State private var importNotice: TempAlertItem?
 
     var body: some View {
         NavigationView {
@@ -257,7 +259,7 @@ struct TempHomeView: View {
                                 .foregroundColor(.orange)
                             Text("暂存箱")
                             Spacer()
-                            Text("\(StashManager.shared.listPlugins().count) 个插件")
+                            Text("\(stashCount) 个插件")
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
                         }
@@ -284,8 +286,28 @@ struct TempHomeView: View {
             .navigationTitle("游戏注入")
             .onAppear {
                 TempInjectManager.shared.cleanupOrphans()
+                stashCount = StashManager.shared.listPlugins().count
+            }
+            .onOpenURL { url in
+                // Receive files shared in from Files app / "Open in..." / share sheet
+                do {
+                    try StashManager.shared.importPlugin(from: url)
+                    stashCount = StashManager.shared.listPlugins().count
+                    importNotice = TempAlertItem(
+                        title: "已添加插件",
+                        message: url.lastPathComponent
+                    )
+                } catch {
+                    importNotice = TempAlertItem(
+                        title: "导入失败",
+                        message: "\(url.lastPathComponent)：\(error.localizedDescription)"
+                    )
+                }
             }
             .alert(item: $injector.alertItem) { item in
+                Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
+            }
+            .alert(item: $importNotice) { item in
                 Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
             }
         }
@@ -317,7 +339,7 @@ struct StashView: View {
 
     @State private var plugins: [URL] = []
     @State private var isImporterPresented = false
-    @State private var importError: String?
+    @State private var importNotice: TempAlertItem?
 
     private let stash = StashManager.shared
 
@@ -364,25 +386,27 @@ struct StashView: View {
             allowedContentTypes: [.data],
             allowsMultipleSelection: true
         ) { result in
+            isImporterPresented = false
             if case let .success(urls) = result {
+                var ok: [String] = []
                 var failures: [String] = []
                 for url in urls {
                     do {
                         try stash.importPlugin(from: url)
+                        ok.append(url.lastPathComponent)
                     } catch {
                         failures.append("\(url.lastPathComponent)：\(error.localizedDescription)")
                     }
                 }
                 reload()
                 if !failures.isEmpty {
-                    importError = failures.joined(separator: "\n")
+                    importNotice = TempAlertItem(title: "导入失败", message: failures.joined(separator: "\n"))
+                } else if !ok.isEmpty {
+                    importNotice = TempAlertItem(title: "已添加插件", message: ok.joined(separator: ", "))
                 }
             }
         }
-        .alert(item: Binding(
-            get: { importError.map { TempAlertItem(title: "导入失败", message: $0) } },
-            set: { importError = $0?.message }
-        )) { item in
+        .alert(item: $importNotice) { item in
             Alert(title: Text(item.title), message: Text(item.message), dismissButton: .default(Text("好")))
         }
     }
